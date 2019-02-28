@@ -5,7 +5,6 @@ import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
-import com.curso.springajax.domain.SocialMetaTag;
 import com.curso.springajax.service.SocialMetaTagService;
 
 @SpringBootApplication
@@ -22,8 +21,8 @@ public class SpringAjaxApplication implements CommandLineRunner {
 	public void run(String... args) throws Exception {
 		
 		/*facebook ou twitter*/
-		SocialMetaTag ogFace = service.getSocialMetaTagByUrl("https://www.youtube.com/watch?v=AaAE33rMTSk");
-		System.out.println(ogFace.toString());
+//		SocialMetaTag ogFace = service.getSocialMetaTagByUrl("https://www.youtube.com/watch?v=AaAE33rMTSk");
+//		System.out.println(ogFace.toString());
 		
 		/*twitter*/
 //		SocialMetaTag ogTwitter = service.getSocialMetaTagByUrl("https://www.youtube.com/watch?v=Pd5hBbzs-_Y");
