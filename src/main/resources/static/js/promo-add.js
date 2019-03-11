@@ -23,11 +23,20 @@ $("#form-add-promo").submit(function(event){
         url: "/promocao/save",
         data: promo,
         success: function () {
-          $("alert").addClass("alert alert-success").text("Promoção cadastrada com sucesso!");  
+            
+            //limpando os dados da última requisição do form - - 
+            $("#form-add-promo").each(function(){
+                this.reset();
+            });
+            //os próximos campos não estão dentro do form, então precisa acessar diretamente.
+            $("#linkImagem").attr("src", "/images/promo-dark.png");
+            $("#site").text("");
+
+            $("#alert").addClass("alert alert-success").text("Promoção cadastrada com sucesso!");  
         },
         error: function(xhr){
             console.log(" > Erro ocorrido: ", xhr.responseText);
-            $("alert").addClass("alert alert-danger").text("Não foi possível cadastrar esta promoção.");
+            $("#alert").addClass("alert alert-danger").text("Não foi possível cadastrar esta promoção.");
         }
     });
 
@@ -47,7 +56,7 @@ $("#linkPromocao").on('change', function() {
             url: "/meta/info?url=" + url,
             cache: false,
             beforeSend: function(){
-            	$("#alert").removeClass("alert alert-danger").text('');
+            	$("#alert").removeClass("alert alert-danger alert-success").text('');
             	$("#titulo").val("");
             	$("#site").text("");
             	$("#linkImagem").attr("src", "");
