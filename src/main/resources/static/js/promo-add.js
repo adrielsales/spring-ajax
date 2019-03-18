@@ -23,6 +23,15 @@ $("#form-add-promo").submit(function(event){
         url: "/promocao/save",
         data: promo,
         beforeSend: function(){
+            //removendo as mensagens de erro do form
+            $("span").closest(".error-span").remove();
+            //remover bordas vermelhas (error) nos inputs do formm 
+            $("#categoria").removeClass("is-invalid");
+            $("#preco").removeClass("is-invalid");
+            $("#titulo").removeClass("is-invalid");
+            $("#linkPromocao").removeClass("is-invalid");
+
+            //habilitando o loading
             $("#form-add-promo").hide();
             $("#loader-form").addClass("loader").show();
         },
@@ -36,7 +45,22 @@ $("#form-add-promo").submit(function(event){
             $("#linkImagem").attr("src", "/images/promo-dark.png");
             $("#site").text("");
 
-            $("#alert").addClass("alert alert-success").text("Promoção cadastrada com sucesso!");  
+            $("#alert")
+                .removeClass("alert alert-danger")
+                .addClass("alert alert-success")
+                .text("Promoção cadastrada com sucesso!");  
+        },
+        statusCode: {
+            422: function(xhr){
+                console.log('status de erro: ', xhr.status);
+                var errors = $.parseJSON(xhr.responseText);
+                $.each(errors, function(key, value){
+                    $("#" + key).addClass("is-invalid");
+                    $("#error-" + key)
+                        .addClass("invalid-feedback")
+                        .append("<span class='error-span'>" + value + "</span>");
+                });
+            }
         },
         error: function(xhr){
             console.log(" > Erro ocorrido: ", xhr.responseText);
